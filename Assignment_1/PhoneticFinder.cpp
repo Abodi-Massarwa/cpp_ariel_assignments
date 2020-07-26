@@ -19,20 +19,22 @@ namespace phonetic{
     bool check_similarity(string current,string target)
     { 
         if(current.length()<target.length()) return false;
-        bool set=false;
+        //bool set=false;
         for (int i = 0; i < current.length(); i++) {
             if((same_set(tolower(current[i]),tolower(current[i]))==false)&&(same_set(tolower(target[i]),tolower(target[i]))==false))
             {
-                continue;
+                /*
+                 * means both letters at the same place aren't suspects of change
+                 * they don't belong to the dictionary but that doesn't imply equality so we have to check for equality
+                 */
+               if( tolower(current[i])!=tolower(target[i])) return false;
             }
-            else if(same_set(tolower(current[i]),tolower(target[i]))==true) //belong to da same suspect set
-            {
-               set=true;  
-            }
-            else
-            {
-               return false;
-            }
+            else  if((same_set(tolower(current[i]),tolower(current[i]))==false)&&(same_set(tolower(target[i]),tolower(target[i]))==true))
+                return false;
+            else if((same_set(tolower(current[i]),tolower(current[i]))==true)&&(same_set(tolower(target[i]),tolower(target[i]))==false))
+                return false;
+
+            else if(same_set(tolower(current[i]),tolower(target[i]))==false) return false;
         }
         if(current.length()>target.length())
         {

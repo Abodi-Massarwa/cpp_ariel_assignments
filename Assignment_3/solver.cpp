@@ -14,7 +14,7 @@ RealVariable solver::operator*( const RealVariable& f,double a)
 {
     return solver::operator*(a,f);
 }
-RealVariable solver::operator*( const RealVariable& f, const RealVariable& g)
+RealVariable solver::operator*( const RealVariable& f, const RealVariable& g) //(x+1)(x+1)=x^2+2x+1
 {
     //RealVariable rvx2=f.getx2()*g;
     RealVariable rvx=f.getx()*(g);
@@ -112,9 +112,9 @@ RealVariable solver::operator==(const RealVariable& a,double b)
 }
 double solver::solve( RealVariable a)
 {
-    if(a.getx2()==0 && a.getx()==0) throw std::invalid_argument("false!");
+    if(a.getx2()==0 && a.getx()==0) throw std::invalid_argument("false expression !");
     //depends, in case we have a polynomial of rank 1 its solvable in o(1)
-    //but in case we have a polynomial of rank 2 , it must be recursive (divide and conquer algorithm)
+
    if(a.getx2()==0) /* indicates a level 1 polynomial*/
    {
        /* no need to care for any kind of complex solution since
@@ -122,6 +122,7 @@ double solver::solve( RealVariable a)
        return (-1*(a.getre()))/a.getx();
 
    }
+   // otherwise we're dealing with rank 2 polynomial , thus we solve it using root's formula
    double coff=(-1*a.getx());
     double root=sqrt((a.getx()*a.getx()-4*a.getx2()*a.getre()));
     double ans_1=(coff+root)/(2*a.getx2());
@@ -184,12 +185,7 @@ std::complex<double> solver::solve( const ComplexVariable b)
     isreal= false;
     }
    if(isreal) return std::complex<double>(real_ans,0);
-    //else its complex
-//    if(b.imag.imag()!=0)
-//    {
-//        //indicted rank 1 with complex number
-//        return -b.imag;
-//    }
+
     double part1=((-b.var.getx())/2*b.var.getx2());
     double part2=(sqrt(-(pow(b.var.getx(),2)-4*b.var.getx2()*b.var.getre()))/(2*b.var.getx2()));
     return std::complex<double>(part1,part2);

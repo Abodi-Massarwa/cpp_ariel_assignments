@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/abdms/CLionProjects/Assignments/Assignment_2/FamilyTree.cpp
+cstring
+-
+FamilyTree.hpp
+C:/Users/abdms/CLionProjects/Assignments/Assignment_2/FamilyTree.hpp
+string
+-
+
+C:/Users/abdms/CLionProjects/Assignments/Assignment_2/FamilyTree.hpp
+string
+-
+iostream
+-
+
