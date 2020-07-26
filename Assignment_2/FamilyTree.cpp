@@ -11,6 +11,7 @@ family::Tree& family::Tree::addMother(const string son, const string mother)
     bool res=family::Tree::addMother_rec(this->root,son,mother,this->root->get_len());
     if(res== false) throw son+" doesn't exist in our tree";
     return *this;
+
 }
 
 family::Tree& family::Tree::addFather(const string son, const string father)
@@ -78,7 +79,7 @@ if(str=="mother"&&root->get_mother()!=NULL){
 
 }
 if((str.find ("grandfather")==std::string::npos) &&(str.find ("grandmother")==std::string::npos)) throw "NOT FOUND";
-/* no for each one in level >=2 applies with the rule
+/* now for each one in level >=2 applies with the formula
  * length= #of('-') in string + 2 */
     int counter=0;
     int index=0;
@@ -105,7 +106,7 @@ if((str.find ("grandfather")==std::string::npos) &&(str.find ("grandmother")==st
         }
     }
     Node* find_result=find_rec(this->root,len,father);
-   if(find_result==NULL) throw "your target doesn't exist in out tree";
+   if(find_result==NULL) throw "your target doesn't exist in our Family-Tree";
    return find_result->m_name;
 
 }
@@ -152,46 +153,9 @@ string family::Tree::relation(const string str) {
             }
         }
 }
-/*
-void family::Tree::remove_rec(Node* n,const string str){
- if(n==NULL) return;
- if(n->get_name()==str) {
-     delete n;
-     return;
- }
- remove_rec(n->get_father(),str);
- remove_rec(n->get_mother(),str);
-
-}*/
-
-void family::Tree::remove_rec(Node* n,const string str){
-    if(n->get_father() == NULL && n->get_mother()==NULL)
-        return;
-    if(n->get_father()->get_name() == str)
-    {
-        delete n->get_father();
-        n->m_father = NULL;
-    }
-    if(n->get_mother()->get_name() == str)
-    {
-        delete n->get_mother();
-        n->m_mother = NULL;
-    }
-    if(n->get_father() != NULL)
-        remove_rec(n->get_father(),str);
-    if(n->get_mother() != NULL)
-        remove_rec(n->get_mother(),str);
-}
-
 
 void family::Tree::remove(const string target) {
-    /*if(this->root->get_name() == target)
-    {
-        delete this->root;
-        this->root = NULL;
-        return;
-    }
-    remove_rec(this->root,target);*/
+    if(root==NULL) throw "tree is empty !";
     if(this->root->get_name()==target) throw "U cant delete the Root!";
     if(remove_rec_pntrToPntr(this->root, target)== false)
     {
